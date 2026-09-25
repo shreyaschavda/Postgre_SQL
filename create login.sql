@@ -1,0 +1,77 @@
+CREATE ROLE wfsuser WITH
+	LOGIN
+	NOSUPERUSER
+	CREATEDB
+	CREATEROLE
+	INHERIT
+	CONNECTION LIMIT -1
+	PASSWORD '21User#26$';
+	
+	
+	-- Allow connection to database
+
+GRANT CONNECT ON DATABASE wfsdb TO wfsuser;
+
+
+-- Allow access to schema (replace public if using another schema)
+
+GRANT USAGE ON SCHEMA public TO wfsuser;
+
+
+-- Existing tables
+
+GRANT SELECT, INSERT, UPDATE, DELETE
+
+ON ALL TABLES IN SCHEMA public
+
+TO wfsuser;
+
+
+-- Existing sequences
+
+GRANT USAGE, SELECT, UPDATE
+
+ON ALL SEQUENCES IN SCHEMA public
+
+TO wfsuser;
+
+
+-- Future tables
+
+ALTER DEFAULT PRIVILEGES
+
+IN SCHEMA public
+
+GRANT SELECT, INSERT, UPDATE, DELETE
+
+ON TABLES TO wfsuser;
+
+
+-- Future sequences
+
+ALTER DEFAULT PRIVILEGES
+
+IN SCHEMA public
+
+GRANT USAGE, SELECT, UPDATE
+
+ON SEQUENCES TO wfsuser;
+ 
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO wfsuser;
+
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO wfsuser;
+
+
+ALTER DEFAULT PRIVILEGES
+
+IN SCHEMA public
+
+GRANT ALL PRIVILEGES ON TABLES TO wfsuser;
+
+
+ALTER DEFAULT PRIVILEGES
+
+IN SCHEMA public
+
+GRANT ALL PRIVILEGES ON SEQUENCES TO wfsuser;
+ 
